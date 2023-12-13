@@ -91,54 +91,54 @@ average_iou_dev = np.mean(iou_scores_dev)
 print(f"Average IoU on dev set: {average_iou_dev}")
 
 # Calculate IoU on training set
-#iou_scores_train = []
-#for train_pred_mask, train_true_mask in tqdm(zip(train_pred_masks, train_masks), desc="Calculating IoU (Train)"):
-#    iou = calculate_iou(train_pred_mask, train_true_mask)
-#    iou_scores_train.append(iou)
+iou_scores_train = []
+for train_pred_mask, train_true_mask in tqdm(zip(train_pred_masks, train_masks), desc="Calculating IoU (Train)"):
+    iou = calculate_iou(train_pred_mask, train_true_mask)
+    iou_scores_train.append(iou)
 
-#average_iou_train = np.mean(iou_scores_train)
-#print(f"Average IoU on training set: {average_iou_train}")
+average_iou_train = np.mean(iou_scores_train)
+print(f"Average IoU on training set: {average_iou_train}")
 
 # Calculate IoU on test set
-#iou_scores_test = []
-#for test_pred_mask, test_true_mask in tqdm(zip(test_pred_masks, test_masks), desc="Calculating IoU (Test)"):
-#    iou = calculate_iou(test_pred_mask, test_true_mask)
-#    iou_scores_test.append(iou)
+iou_scores_test = []
+for test_pred_mask, test_true_mask in tqdm(zip(test_pred_masks, test_masks), desc="Calculating IoU (Test)"):
+    iou = calculate_iou(test_pred_mask, test_true_mask)
+    iou_scores_test.append(iou)
 
-#average_iou_test = np.mean(iou_scores_test)
-#print(f"Average IoU on test set: {average_iou_test}")
+average_iou_test = np.mean(iou_scores_test)
+print(f"Average IoU on test set: {average_iou_test}")
 
 # Save the predicted masks for the test set
-#for i, test_pred_mask in tqdm(enumerate(test_pred_masks), total=len(test_pred_masks), desc="Saving Test Masks"):
-#    filename = f"{file_names[i]}"
-#    original_image = cv2.imread(os.path.join(test_data_dir, filename), cv2.IMREAD_GRAYSCALE)  # Read as grayscale
-#    correct_mask = cv2.imread(os.path.join(test_mask_dir, filename), cv2.IMREAD_GRAYSCALE)  # Read as grayscale
+for i, test_pred_mask in tqdm(enumerate(test_pred_masks), total=len(test_pred_masks), desc="Saving Test Masks"):
+    filename = f"{file_names[i]}"
+    original_image = cv2.imread(os.path.join(test_data_dir, filename), cv2.IMREAD_GRAYSCALE)  # Read as grayscale
+    correct_mask = cv2.imread(os.path.join(test_mask_dir, filename), cv2.IMREAD_GRAYSCALE)  # Read as grayscale
 
     # Create a subplot image with original image, correct mask, and segmented cell mask
-#    plt.figure(figsize=(12, 4))  # Create a larger figure to accommodate subplots
+    plt.figure(figsize=(12, 4))  # Create a larger figure to accommodate subplots
 
     # Original Image
-#    plt.subplot(1, 3, 1)
-#    plt.imshow(original_image, cmap='gray')
-#    plt.title("Original Image")
+    plt.subplot(1, 3, 1)
+    plt.imshow(original_image, cmap='gray')
+    plt.title("Original Image")
 
     # Correct Mask
-#    plt.subplot(1, 3, 2)
-#    plt.imshow(correct_mask, cmap='gray')
-#    plt.title("Correct Mask")
+    plt.subplot(1, 3, 2)
+    plt.imshow(correct_mask, cmap='gray')
+    plt.title("Correct Mask")
 
     # Segmented Cell Mask
-#    plt.subplot(1, 3, 3)
-#    plt.imshow(original_image, cmap='gray')
-#    plt.imshow(test_pred_mask, alpha=0.5, cmap='viridis')
-#    plt.title("Segmented Cells\nIoU: {:.4f}".format(iou_scores_test[i]))  # Display IoU score
+    plt.subplot(1, 3, 3)
+    plt.imshow(original_image, cmap='gray')
+    plt.imshow(test_pred_mask, alpha=0.5, cmap='viridis')
+    plt.title("Segmented Cells\nIoU: {:.4f}".format(iou_scores_test[i]))  # Display IoU score
 
-#    plt.tight_layout()  # Ensure subplots don't overlap
+    plt.tight_layout()  # Ensure subplots don't overlap
 
     # Save the subplot image with the same name as the image file
-#    subplot_image_path = os.path.join(output_dir, f'{filename}_subplot.png')
-#    plt.savefig(subplot_image_path)
-#    plt.close()  # Close the figure after saving
+    subplot_image_path = os.path.join(output_dir, f'{filename}_subplot.png')
+    plt.savefig(subplot_image_path)
+    plt.close()  # Close the figure after saving
 
     # Save the test mask with the same name as the image file
-#    cv2.imwrite(os.path.join(output_dir, filename), (test_pred_mask * 255).astype(np.uint8))
+    cv2.imwrite(os.path.join(output_dir, filename), (test_pred_mask * 255).astype(np.uint8))
